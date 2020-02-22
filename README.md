@@ -1,2 +1,2 @@
 # vue-intermediate
-# vue-intermediate
+## ALL COMPONENTS IMPLEMENTATION
