@@ -17,12 +17,13 @@ export default {
     },
     methods: {
         addTodo: function() {
-            if(this.newTodoItem !== ''){
+            if(this.newTodoItem !== ''){ // 입력값이 있을때만 동작
                 var obj = {
                     completed: false,
                     item: this.newTodoItem
                 };
                 // 저장하는 로직 localStorage.setItem('key','value')
+                // JSON.stringify(object_name) : json 형식을 string 으로 바꿈
                 localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
                 this.clearInput();
             }

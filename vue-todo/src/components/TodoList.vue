@@ -1,9 +1,9 @@
 <template>
   <div>
       <ul>
-          <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow">
-              <i class="checkBtn fas fa-check" v-on:click="toggleComplate"></i>
-              {{ todoItem }}
+          <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+              <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplate(todoItem, index)"></i>
+              <span v-bind:class="{textCompleted: todoItem.completed}">  {{ todoItem.item }}  </span>
               <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
                   <i class="fas fa-trash-alt"></i>
               </span>
@@ -25,15 +25,22 @@ export default {
             // splice(특정인덱스, 지울 아이템 수)
             this.todoItems.splice(index, 1);
         },
-        toggleComplate: function() {
-            
+        toggleComplate: function(todoItem, index) {
+            todoItem.completed = !todoItem.completed;
+
+            // update API가 없어서 삭제 후 다시 넣음
+            localStorage.removeItem(todoItem.item);
+            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
         }
     },
     created: function() {
         if(localStorage.length > 0){
             for (var i = 0; i < localStorage.length; i++){
-                if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
-                    this.todoItems.push(localStorage.key(i));
+                if(localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+                    var val = localStorage.getItem(localStorage.key(i)); // value값을 얻음
+                    var itemm = JSON.parse(val);
+                    this.todoItems.push(itemm)
+                }
             }
         }
     }
