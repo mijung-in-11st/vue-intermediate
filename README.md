@@ -5,4 +5,5 @@ master : "just" todo-app design
 
 **branchs**  
 1. todo-app/components-implementation    
-2. todo-app/components-refactoring
+2. todo-app/components-refactoring       
+3. todo-app/components-modal
